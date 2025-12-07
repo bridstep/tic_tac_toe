@@ -38,6 +38,15 @@ def val_player_input(player_input):
         row = int(valid_input[0])
         col = int(valid_input[1])
 
+def check_move(board, row, col):
+    if board[row][col] != '_':
+        print("Invalid move. Try again.")
+        return True
+    return False
+
+def check_win(board, row, col):
+    pass
+
 def play_game():
     board = [['_' for _ in range(3)] for _ in range(3)]
     current_move = 'x'
@@ -46,11 +55,20 @@ def play_game():
     #print game message
 
     while player != "quit":
-        player = input("Make your move player " + current_move + "\n").split(',')
 
-        row, col = val_player_input(player)
+        check_loop = True
+        while check_loop:
+            player = input("Make your move player " + current_move + "\n").split(',')
+
+            row, col = val_player_input(player)
+
+            # check if move is available
+            check_loop = check_move(board, row, col)
 
         board[row][col] = current_move
+
+        # check for win function
+
 
 
         if current_move == 'x':
