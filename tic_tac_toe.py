@@ -44,8 +44,41 @@ def check_move(board, row, col):
         return True
     return False
 
-def check_win(board, row, col):
-    pass
+def check_win(board):
+    status = 1
+
+    # check rows
+    board_len = len(board)
+    for row in range(board_len):
+        if board[row][0] == board[row][1] and board[row][0] != '_':
+            if board[row][1] == board[row][2]:
+                print(f"Player {board[row][0]} is the winner!")
+                status = 0
+
+    # check columns
+    for col in range(board_len):
+        if board[0][col] == board[1][col]and board[0][col] != '_':
+            if board[1][col] == board[2][col]:
+                print(f"Player {board[0][col]} is the winner!")
+                status = 0
+
+    # check diagonal
+    if board[0][0] == board[1][1] and board[0][0] != '_':
+        if board[1][1] == board[2][2]:
+            print(f"Player {board[0][0]} is the winner!")
+            status = 0
+    
+    # check diagonal
+    if board[0][2] == board[1][1] and board[0][2] != '_':
+        if board[1][1] == board[2][0]:
+            print(f"Player {board[0][2]} is the winner!")
+            status = 0
+
+    if status == 0:
+        display_board(board)
+        sys.exit()
+
+    return
 
 def play_game():
     board = [['_' for _ in range(3)] for _ in range(3)]
@@ -68,8 +101,7 @@ def play_game():
         board[row][col] = current_move
 
         # check for win function
-
-
+        check_win(board)
 
         if current_move == 'x':
             current_move = 'o'
